@@ -1,0 +1,7 @@
+services:
+  vk_bot:
+    build: .
+    restart: always
+    ports:
+      - "8000:80"
+  

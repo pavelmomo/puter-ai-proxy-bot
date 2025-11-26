@@ -1,5 +1,6 @@
 services:
   vk_bot:
+    container_name: puter_ai_bot
     build: .
     restart: always
     ports:

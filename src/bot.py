@@ -1,6 +1,7 @@
 from puter import PuterAI, PuterAPIError
 from vkbottle import Bot
 from vkbottle.bot import Message
+from vkbottle.dispatch.rules.base import StickerRule
 from vkbottle.callback import BotCallback
 
 from config import settings
@@ -19,6 +20,11 @@ async def clear_history(message: Message):
     if message.from_id in USERS_HISTORIES:
         del USERS_HISTORIES[message.from_id]
     await message.answer("Выполнена очистка истории")
+
+
+@bot.on.private_message(StickerRule())
+async def react_to_sticker(message: Message):
+    await message.answer(sticker_id=79410)
 
 
 @bot.on.private_message()

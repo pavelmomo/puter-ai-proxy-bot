@@ -24,7 +24,6 @@ COPY --chown=nonroot:nonroot .env /app
 ENV PATH="/app/.venv/bin:$PATH"
 
 USER nonroot
-ENTRYPOINT [ "/bin/bash" ]
 
 EXPOSE 8000
-CMD ["python", "main.py"]
+CMD ["/bin/bash", "-c", "python", "main.py"]

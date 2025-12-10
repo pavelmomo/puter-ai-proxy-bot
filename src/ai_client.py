@@ -34,7 +34,7 @@ class ChatClient:
             response = await self._client.chat.completions.create(
                 messages=self._history,
                 model=self._model,
-                provider=Provider.PollinationsAI,
+                provider=self._provider,
                 web_search=False,
             )
             response_content: str = response.choices[0].message.content
@@ -48,4 +48,4 @@ class ChatClient:
             return "Произошла ошибка"
 
 
-chat_client = ChatClient(Provider.PollinationsAI, settings.AI_MODEL_NAME)
+chat_client = ChatClient(Provider.Perplexity, settings.AI_MODEL_NAME)

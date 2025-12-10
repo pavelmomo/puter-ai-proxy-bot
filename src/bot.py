@@ -1,16 +1,13 @@
-from puter import PuterAI, PuterAPIError
 from vkbottle import Bot
 from vkbottle.bot import Message
 from vkbottle.callback import BotCallback
 from vkbottle.dispatch.rules.base import StickerRule
 
+from ai_client import chat_client
 from config import settings
 
 bot_calback = BotCallback(url=settings.CALLBACK_URL, title=settings.SERVER_NAME)
 bot = Bot(token=settings.VK_TOKEN, callback=bot_calback)
-
-puter_ai = PuterAI(settings.PUTER_USERNAME, settings.PUTER_PASSWORD)
-puter_ai.set_model(settings.PUTER_MODEL)
 
 USERS_HISTORIES: dict[int, list] = {}
 
@@ -34,9 +31,7 @@ async def proxy_messages(message: Message):
     if user_id not in USERS_HISTORIES:
         USERS_HISTORIES[user_id] = []
 
-    puter_ai.chat_history = USERS_HISTORIES[user_id]
-    try:
-        response = await puter_ai.async_chat(message.text)
-        await message.answer(response)
-    except PuterAPIError:
-        await message.answer("Ошибка обработки запроса")
+    chat_client.set_history(USERS_HISTORIES[user_id])
+
+    response = await chat_client.send_prompt(message.text)
+    await message.answer(response)

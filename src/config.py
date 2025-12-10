@@ -19,9 +19,7 @@ class Settings(BaseSettings):
     SERVER_NAME: str = "vk_bot"
     LOG_LEVEL: str = "INFO"
 
-    PUTER_USERNAME: str = "user"
-    PUTER_PASSWORD: str = "password"
-    PUTER_MODEL: str = "gpt-4.1"
+    AI_MODEL_NAME: str ="deepseek-r1"
 
     VK_TOKEN: str = "token"
 

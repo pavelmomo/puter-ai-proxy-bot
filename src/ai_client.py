@@ -1,7 +1,7 @@
 import logging
 
-from g4f import Provider, ProviderType
 from g4f.client import AsyncClient
+from g4f.Provider import ProviderType, ProviderUtils
 from g4f.typing import Message
 
 from config import settings
@@ -43,9 +43,11 @@ class ChatClient:
             return response_content
         except Exception:
             self._history.clear()
-            logger.exception("Произошла ошибка при отправке промпта")
+            logger.exception(f"Произошла ошибка при отправке промпта ({prompt})")
 
             return "Произошла ошибка"
 
 
-chat_client = ChatClient(Provider.Perplexity, settings.AI_MODEL_NAME)
+chat_client = ChatClient(
+    ProviderUtils.convert[settings.AI_PROVIDER_NAME], settings.AI_MODEL_NAME
+)

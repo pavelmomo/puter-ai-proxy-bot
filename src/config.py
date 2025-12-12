@@ -20,6 +20,7 @@ class Settings(BaseSettings):
     LOG_LEVEL: str = "INFO"
 
     AI_MODEL_NAME: str ="deepseek-r1"
+    AI_PROVIDER_NAME: str ="PollinationsAI"
 
     VK_TOKEN: str = "token"
 
